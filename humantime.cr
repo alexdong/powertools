@@ -20,15 +20,15 @@ option_parser = OptionParser.parse do |parser|
   end
 end
 
-
-epoch_ms = ARGV[0] if ARGV.size > 0
-epoch_ms = STDIN.gets if ARGV.size == 0
-
-case epoch_ms
-when Nil, ""
-    STDERR.puts "ERROR: missing timestamp"
-    STDERR.puts option_parser
-    exit(1)
-else
+def convert(epoch_ms)
     puts Time.unix_ms(epoch_ms.to_i64).to_local.to_s("%Y-%m-%d %H:%M:%S.%L %z")
+end
+
+
+if ARGV.size > 0
+    ARGV.map { |epoch| convert(epoch) }
+else
+    STDIN.each_line do |epoch|
+        convert(epoch) 
+    end
 end
