@@ -8,6 +8,7 @@ Usage:
 
     humantime 1646112277384
     echo 1646112277384 | humantime
+    echo '{"timestamp": 1646112277384, ' | humantime
 
     -v, --version                    Show version
     -h, --help                       Show help
@@ -17,5 +18,5 @@ Usage:
 0.01s user 0.01s system 71% cpu 0.021 total
 
 % time humantime 1646112277384 2>&1
-0.00s user 0.01s system 87% cpu 0.013 total
+0.00s user 0.01s system 88% cpu 0.012 total
 ```
