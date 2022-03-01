@@ -8,6 +8,6 @@
 humantime 1646112277384
 
 # Or, be part of the pipe for log analysis
-echo 1646112277384 | humantime"
+echo 1646112277384 | humantime
 tail -F ... | cut -f 3 | humantime
 ```
