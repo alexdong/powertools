@@ -4,10 +4,14 @@
 `humantime` turns an epoch ms time into local timezone string. 
 
 ```bash
-# Manually look up a time
-humantime 1646112277384
+% humantime -h
+Convert an milli-second epoch into string in local timezone
 
-# Or, be part of the pipe for log analysis
-echo 1646112277384 | humantime
-tail -F ... | cut -f 3 | humantime
+Usage:
+
+    humantime 1646112277384
+    echo 1646112277384 | humantime
+
+    -v, --version                    Show version
+    -h, --help                       Show help
 ```
