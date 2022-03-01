@@ -1,13 +1,21 @@
-`powertools` is a collection of small, single-purpose tools I built using [crystal-lang](https://crystal-lang.org/). To install the tools into `~/bin`, clone the repo then do `brew install crystal && ./build.sh`.
-
-### humantime
-`humantime` turns an epoch ms time into local timezone string. 
+`powertools` is a collection of small, single-purpose, high-performance tools I built using [crystal-lang](https://crystal-lang.org/). To install the tools into `~/bin`, clone the repo then `brew install crystal && ./build.sh`.
 
 ```bash
-# Manually look up a time
-humantime 1646112277384
+% humantime -h
+Convert an milli-second epoch into string in local timezone
 
-# Or, be part of the pipe for log analysis
-echo 1646112277384 | humantime"
-tail -F ... | cut -f 3 | humantime
+Usage:
+
+    humantime 1646112277384
+    echo 1646112277384 | humantime
+
+    -v, --version                    Show version
+    -h, --help                       Show help
+    
+    
+% time perl -le 'print scalar localtime 1646112277384' 2>&1
+0.01s user 0.01s system 71% cpu 0.021 total
+
+% time humantime 1646112277384 2>&1
+0.00s user 0.01s system 87% cpu 0.013 total
 ```
