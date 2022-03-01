@@ -14,7 +14,7 @@ The timestamp can be provided in three ways:
     echo 1646112277384 | humantime
     echo 'timestamp: 1646112277384' | humantime
 
-3) through the STDIN
+3) or through the STDIN and unix pipe as a handy `sed` replacement
 
     # Replace the epoch with a human reading string
     cat payload.json | humantime
