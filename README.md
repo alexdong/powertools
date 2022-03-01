@@ -1,7 +1,4 @@
-`powertools` is a collection of small, single-purpose tools I built using [crystal-lang](https://crystal-lang.org/). To install the tools into `~/bin`, clone the repo then do `brew install crystal && ./build.sh`.
-
-### humantime
-`humantime` turns an epoch ms time into local timezone string. 
+`powertools` is a collection of small, single-purpose tools I built using [crystal-lang](https://crystal-lang.org/). To install the tools into `~/bin`, clone the repo then `brew install crystal && ./build.sh`.
 
 ```bash
 % humantime -h
