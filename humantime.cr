@@ -13,6 +13,7 @@ The timestamp can be provided in three ways:
     humantime 1646112277384
     echo 1646112277384 | humantime
     echo 'timestamp: 1646112277384' | humantime
+    echo 'timestamp: 1646112277384' | humantime -r
 
 3) or through the STDIN and unix pipe as a handy `sed` replacement
 
@@ -26,6 +27,7 @@ The timestamp can be provided in three ways:
 "
 
 print_format = "%Y-%m-%d %H:%M:%S.%L %z"
+repeat_input = false
 
 option_parser = OptionParser.parse do |parser|
   parser.banner = banner
@@ -40,25 +42,36 @@ option_parser = OptionParser.parse do |parser|
   parser.on "-f FORMAT", "--format=FORMAT", "Specifies the format for the output" do |format|
     print_format = format
   end
+  parser.on "-r", "--repeat", "Repeat the epoch time" do 
+    repeat_input = true
+  end
 end
 
 def convert(epoch_ms, print_format)
     Time.unix_ms(epoch_ms.to_i64).to_local.to_s(print_format)
 end
 
-def proc(line, print_format)
-    if line.size == 13 && line.to_i64?
-        puts convert(line, print_format)
+def print_result(string, epoch_ms, repeat_input)
+    if repeat_input
+        puts "#{string} #{epoch_ms} "
     else
-        puts line.gsub(/\d{13}/) { |epoch_ms| convert(epoch_ms, print_format) }
+        puts string
+    end
+end
+
+def proc(line, print_format, repeat_input)
+    if line.size == 13 && line.to_i64?
+        print_result(convert(line, print_format), line, repeat_input)
+    else
+        print_result(line.gsub(/\d{13}/) { |epoch_ms| convert(epoch_ms, print_format) }, line, repeat_input)
     end
 end
 
 
 if ARGV.size > 0
-    ARGV.map { |epoch| proc(epoch, print_format) }
+    ARGV.map { |epoch| proc(epoch, print_format, repeat_input) }
 else
     STDIN.each_line do |epoch|
-        proc(epoch, print_format) 
+        proc(epoch, print_format, repeat_input) 
     end
 end
